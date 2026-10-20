@@ -9,7 +9,7 @@
   <meta name="description" content="CTF学习记录">
 <meta property="og:type" content="website">
 <meta property="og:title" content="wzz的学习记录">
-<meta property="og:url" content="http://127.0.0.1:18080/index.html">
+<meta property="og:url" content="https://moo066787.github.io/index.html">
 <meta property="og:site_name" content="wzz的学习记录">
 <meta property="og:description" content="CTF学习记录">
 <meta property="og:locale" content="zh_CN">
@@ -68,7 +68,7 @@
         <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://127.0.0.1:18080"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://moo066787.github.io"></form>
       </div>
     </div>
   </div>
@@ -76,6 +76,251 @@
 
       <div class="outer">
         <section id="main">
+  
+    <article id="post-一些WP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/10/20/%E4%B8%80%E4%BA%9BWP/" class="article-date">
+  <time class="dt-published" datetime="2026-10-20T09:36:00.000Z" itemprop="datePublished">2026-10-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/10/20/%E4%B8%80%E4%BA%9BWP/">10.20 Web&amp;Misc</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="CTF-Web和Misc-WP"><a href="#CTF-Web和Misc-WP" class="headerlink" title="CTF Web和Misc WP"></a>CTF Web和Misc WP</h1><h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="1-神秘的文件"><a href="#1-神秘的文件" class="headerlink" title="1.神秘的文件"></a><strong>1.神秘的文件</strong></h3><p>此题涉及：1.已知明文攻击 2.文件的格式转换（docx—&gt;zip）<br>解题过程：<br>1.下载并打开文件，其有flag.zip和logo.png两个文件<br><img src="https://note.youdao.com/yws/res/a/WEBRESOURCE4841ebb189288d86d2eb6494f8bb51aa" alt="image.png"><br>据此可以想到有关图片隐写的方向，但是通过分离，LSB等操作之后并没有得到有效信息。如果此时打开flag.zip文件时发现<br><img src="https://note.youdao.com/yws/res/b/WEBRESOURCE49ff391415323a14ac31cd6a7e1aed9b" alt="image.png"><br>里面有加密的logo.png其CRC32与外面的logo.png一样，不由得想到做已知明文攻击这一方法。<br>2.进行已知明文攻击，其实可以联想到之前做过的<strong>压缩包真的很简单</strong>这个题目，他是用png头做已知明文攻击，此时与本题出现区别即zip的格式<strong>store</strong>与<strong>Deflate（压缩）</strong>，前者原文件和压缩文件一样，即原样存，不压缩，文件多大就是多大，再者是压缩文件比原文件大（压缩后 ≥ 原始（相等或略大几字节）→ 没压缩（存储模式）→ 文件头能用）；后者是压缩后 &lt; 原始 → 真压缩了 → 文件头失效。那进行明文攻击的方式就不一样了（其实也可以根据题目给出的内容来判断，此题目是给了内外两个一样的png图片，一个加密，一个未加密，可以得出）<br>3.进行实操，用的bkcrack工具。先将外面未加密的png图片按照（flag.zip）原样的压缩方式进行压缩<br><img src="https://note.youdao.com/yws/res/8/WEBRESOURCEc154c45137126c0eff859d0ff9940308" alt="image.png"><br><img src="https://note.youdao.com/yws/res/6/WEBRESOURCEd4789356967cc42845df85a255ff95e6" alt="image.png"><br>此处选择标准zip即可，得到压缩包，进行明文攻击。<br>3.输入指令,得到密钥</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bkcrack -C flag.zip -c logo.zip -P logo.zip -p logo.png</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/res/7/WEBRESOURCE5beb28d28827cd7f3ed044890d031367" alt="image.png"><br>再输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bkcrack.exe -C flag.zip -k 密钥 -D moo.zip</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/res/a/WEBRESOURCEb0a04d8799715d629bc99f3e3fcc43ea" alt="image.png"><br>此步生成一个和flag.zip文件一样的但是未加密的moo.zip文件<br>打开<br><img src="https://note.youdao.com/yws/res/a/WEBRESOURCEcc3a746799c3faf68afac86f92cb083a" alt="image.png"><br>此处可用010查看一下 发现其是压缩包格式的，将其后缀改为zip，打开，在其dcoprops文件夹里找到flag。<br><img src="https://note.youdao.com/yws/res/5/WEBRESOURCE6412eb505187b441c90d03338a6b08d5" alt="image.png"></p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="1-Linux的基操"><a href="#1-Linux的基操" class="headerlink" title="1.Linux的基操"></a>1.Linux的基操</h3><p>1.认识终端<br>pwd — Print Working Directory，显示当前所在目录<br>• whoami — 显示当前登录的用户名<br>• echo — 输出文本内容<br>• &gt; — 重定向符号，将输出写入文件（覆盖）<br>示例<br>$ pwd<br>&#x2F;home&#x2F;user<br>$ whoami<br>user<br>$ echo hello &gt; file.txt<br>注意<br>• ~ 代表当前用户的家目录<br>• &gt; 会覆盖文件内容，&gt;&gt; 是追加<br>2.echo 与命令替换<br>• echo 将文本输出到终端或文件<br>• $(命令) 是命令替换，会先执行括号内的命令，再将结果替换到外层命令中<br>示例<br>$ echo Hello World<br>Hello World<br>$ echo $(date)<br>Mon Jan 1 12:00:00 UTC 2025<br>3.获取帮助<br>Linux 中有多种方式查看命令帮助：<br>• man 命令 — 查看手册页（按 q 退出）<br>• 命令 –help — 查看简要帮助<br>• type 命令 — 查看命令类型<br>示例<br>$ ls –help<br>Usage: ls [OPTION]… [FILE]…<br>示例：ls –help &gt; ~&#x2F;ls_help.txt<br>4.ls与目录浏览<br>ls 命令<br>ls 用于列出目录内容。<br>常用参数<br>• ls — 列出当前目录<br>• ls -l — 长格式（权限、大小、时间）<br>• ls -a — 显示隐藏文件（以 . 开头）<br>• ls -la — 长格式 + 隐藏文件<br>• ls -lh — 人类可读的文件大小<br>cd 命令<br>• cd &#x2F;path — 切换到指定目录<br>• cd .. — 返回上级目录<br>• cd ~ 或 cd — 回到家目录<br>5.创建目录和文件<br>创建文件与目录<br>mkdir — 创建目录<br>• mkdir dir — 创建单个目录<br>• mkdir -p a&#x2F;b&#x2F;c — 递归创建多级目录<br>touch — 创建空文件<br>• touch file.txt — 创建空文件<br>• 如果文件已存在，更新修改时间<br>&amp;&amp; — 连续执行<br>• cmd1 &amp;&amp; cmd2 — cmd1 成功后才执行 cmd2<br>6.复制与移动<br>cp 与 mv<br>cp — 复制<br>• cp src dst — 复制文件<br>• cp -r dir1 dir2 — 递归复制目录<br>mv — 移动&#x2F;重命名<br>• mv old new — 重命名文件<br>• mv file dir&#x2F; — 移动文件到目录<br>7.删除命令<br>rm 命令<br>• rm file — 删除文件<br>• rm -r dir — 递归删除目录及其内容<br>• rm -f file — 强制删除，不提示<br>• rmdir dir — 删除空目录<br>注意<br>• rm 删除后无法恢复，请谨慎使用<br>• 永远不要运行 rm -rf &#x2F;<br>8.查看文件内容<br>• cat file — 一次性输出全部内容<br>• less file — 分页查看（q 退出，空格翻页）<br>• more file — 类似 less 的简化版<br>9.head 与 tail<br>• head -n 3 file — 显示前 3 行<br>• tail -n 3 file — 显示最后 3 行<br>• tail -f file — 实时跟踪文件末尾（日志常用）<br>10.nano 编辑器<br>nano 是一个简单易用的终端文本编辑器。<br>基本操作<br>• nano file — 打开或创建文件<br>• 直接输入文字即可编辑<br>• Ctrl+O — 保存文件<br>• Ctrl+X — 退出编辑器<br>• Ctrl+K — 剪切当前行<br>• Ctrl+U — 粘贴<br>11.vim 基础<br>vim 是 Linux 最强大的文本编辑器之一。<br>三种模式<br>• 普通模式 — 默认模式，用于导航和命令<br>• 插入模式 — 按 i 进入，用于输入文字<br>• 命令模式 — 按 : 进入，用于保存退出等<br>常用操作<br>• i — 进入插入模式<br>• Esc — 回到普通模式<br>• :w — 保存<br>• :q — 退出<br>• :wq — 保存并退出<br>• :q! — 不保存强制退出<br>• dd — 删除当前行<br>• yy — 复制当前行<br>• p — 粘贴<br>打开vim vi+<br>12.grep 命令<br>grep 用于在文件中搜索匹配的文本行。<br>常用参数<br>• grep pattern file — 搜索匹配行<br>• grep -i — 忽略大小写<br>• grep -n — 显示行号<br>• grep -r — 递归搜索目录<br>• grep -v — 反向匹配（不包含的行）<br>• grep -c — 只显示匹配行数<br>13.find 命令<br>find 用于在目录树中查找文件。<br>常用参数<br>• find &#x2F;path -name ‘pattern’ — 按文件名查找<br>• find &#x2F;path -type f — 只查找文件<br>• find &#x2F;path -type d — 只查找目录<br>• find &#x2F;path -size +1M — 查找大于 1MB 的文件<br>• find &#x2F;path -mtime -7 — 最近 7 天修改过的文件<br>若要查找文件名中存在的字符要加*（表示占位符）只要有这些字符都会被找到<br>14.管道 |<br>管道将前一个命令的输出作为后一个命令的输入。<br>语法<br>命令1 | 命令2 | 命令3<br>常见用法<br>• ls | wc -l — 统计文件数量<br>• cat file | grep pattern — 搜索文件内容<br>• ps aux | grep nginx — 查找进程<br>• history | tail -20 — 查看最近 20 条历史命令<br>15.未完待续…</p>
+<h3 id="2-滑稽"><a href="#2-滑稽" class="headerlink" title="2.滑稽"></a>2.滑稽</h3><p>此题没有别的信息 第一步要想到查看前端源码里面<br>很简单，元素里就有flag</p>
+<h3 id="3-计算器"><a href="#3-计算器" class="headerlink" title="3.计算器"></a>3.计算器</h3><p>此题在输入时只可以输入1位数字<br>在修改栏（元素）我们可以找到input maxlength那一项 4.把“1“改为“2”<br><img src="https://note.youdao.com/yws/res/4/WEBRESOURCE179e5b74bb838b6fec660ceca640f794" alt="image.png"><br>在验证格填写结果<br>最终拿到flag<br>这种操作叫 “前端验证绕过”，也叫”客户端验证绕过”（Front-end &#x2F; Client-side Validation Bypass）。<br>为什么能改<br>HTML、CSS、JavaScript 都是运行在你自己浏览器里的代码，你对它有完全控制权：<br>• 你改的只是本地页面的显示和行为，不影响服务器<br>• 网页怎么限制你，你就能怎么改<br>• 这就是 “前端验证” 的天生弱点 ——前端的限制只能防君子，防不了会 F12 的人<br>常见的前端限制（CTF 常考）<br>你看到的<br>含义<br>绕过方法<br>maxlength&#x3D;”2”<br>限制输入长度<br>改成更大数字或删掉<br>disabled<br>按钮 &#x2F; 输入框被禁用<br>删掉 disabled 属性<br>readonly<br>只读不能改<br>删掉 readonly<br>type&#x3D;”hidden”<br>隐藏字段（flag 常藏这）<br>元素面板直接看 value<br>JS 里写死密码 &#x2F; 判断<br>前端 JS 验证<br>看 Sources 里的 JS 找答案<br>核心思想<br>凡是只在浏览器里做的验证，都不可信。 真正安全的校验必须放在服务器后端，前端校验只是为了用户体验，不是安全措施。<br>这类题的套路就是：F12 看哪里被限制了 → 直接改 HTML&#x2F;JS → 绕过。</p>
+<h3 id="4-GET"><a href="#4-GET" class="headerlink" title="4.GET"></a>4.GET</h3><p><img src="https://note.youdao.com/yws/res/c/WEBRESOURCE70163749a7960fa5455dc36eac8c1f2c" alt="image.png"><br>php代码翻译<br>$what &#x3D; $_GET[‘what’];    &#x2F;&#x2F; 从 URL 地址栏取参数 what 的值，存进变量 $what<br>echo $what;               &#x2F;&#x2F; 把你传进来的值，显示到网页上<br>if($what &#x3D;&#x3D; ‘flag’)       &#x2F;&#x2F; 判断：如果你传的 what 等于 “flag”<br>echo ‘flag{****}’;        &#x2F;&#x2F; 就输出 flag<br>注：php的三种等号<br>$a &#x3D; 1;      &#x2F;&#x2F; 单等号：赋值（把1放进$a）<br>$a &#x3D;&#x3D; 1;     &#x2F;&#x2F; 双等号：比较值是否相等（弱比较，不看类型）<br>$a &#x3D;&#x3D;&#x3D; 1;    &#x2F;&#x2F; 三等号：比较值和类型是否完全相等（强比较）<br>服务器去判断你输入的值是否匹配，如果匹配就输出flag<br>URL里的&#x3D;指的是你把值传给服务器</p>
+<h3 id="5-POST"><a href="#5-POST" class="headerlink" title="5.POST"></a>5.POST</h3><p><img src="https://note.youdao.com/yws/res/1/WEBRESOURCEb737a5a20e05dd380c3d0166bd5230e1" alt="image.png"><br>此题目为post传参，curl 里 POST 传参就用 -d（全称 –data）<br><img src="https://note.youdao.com/yws/res/d/WEBRESOURCE8262207a8814067a15adf426e10e710d" alt="image.png"></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-I</code></td>
+<td>只看响应头</td>
+</tr>
+<tr>
+<td><code>-X</code></td>
+<td>指定请求方法（GET&#x2F;POST）</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td>发送 POST 数据</td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td>带 Cookie</td>
+</tr>
+<tr>
+<td><code>-H</code></td>
+<td>加请求头</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>显示详细过程（排查问题用）</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td>保存到文件（下载）</td>
+</tr>
+<tr>
+<td>curl 是一个命令行工具，相当于 “没有界面的浏览器”，用来在命令行里发 HTTP 请求、访问网页。</td>
+<td></td>
+</tr>
+<tr>
+<td>HTML 是网页的 “骨架语言”，专门用来描述网页长什么样、由什么组成。</td>
+<td></td>
+</tr>
+<tr>
+<td>全称是 HyperText Markup Language（超文本标记语言）。它不是编程语言（没有逻辑运算），而是用一对对标签来标注内容。</td>
+<td></td>
+</tr>
+<tr>
+<td>标签</td>
+<td>作用</td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>&lt;html&gt;</code></td>
+<td>整个网页</td>
+</tr>
+<tr>
+<td><code>&lt;head&gt;</code></td>
+<td>网页头部信息（标题、样式）</td>
+</tr>
+<tr>
+<td><code>&lt;body&gt;</code></td>
+<td>网页主体（你看到的内容）</td>
+</tr>
+<tr>
+<td><code>&lt;span&gt;</code></td>
+<td>一段文字</td>
+</tr>
+<tr>
+<td><code>&lt;input&gt;</code></td>
+<td>输入框</td>
+</tr>
+<tr>
+<td><code>&lt;button&gt;</code></td>
+<td>按钮</td>
+</tr>
+<tr>
+<td><code>&lt;!-- --&gt;</code></td>
+<td>注释（flag 爱藏这里）</td>
+</tr>
+<tr>
+<td>网页三件套</td>
+<td></td>
+</tr>
+<tr>
+<td>HTML  &#x3D; 骨架（房子的结构：墙、门、窗）</td>
+<td></td>
+</tr>
+<tr>
+<td>CSS   &#x3D; 装修（颜色、大小、字体、排版）</td>
+<td></td>
+</tr>
+<tr>
+<td>JS    &#x3D; 电路（点击、动画、和服务器交互）</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="6-备份是个好习惯"><a href="#6-备份是个好习惯" class="headerlink" title="6.备份是个好习惯"></a>6.备份是个好习惯</h3><p>设计知识点：1.备份泄露 2.MD5弱比较 3.双写绕过<br><img src="https://note.youdao.com/yws/res/8/WEBRESOURCE204b2b422f910b89ce22d48f4b7aec38" alt="image.png"><br><img src="https://note.youdao.com/yws/res/3/WEBRESOURCE73de983793a55147702afd30ceafb0a3" alt="image.png"><br>拓展 MD5强比较<br><img src="https://note.youdao.com/yws/res/9/WEBRESOURCEd8aa5f8aabf59481b028e3c8e5720ba9" alt="image.png"><br><strong>构造的过程就是绕过的过程</strong><br>解题过程：<br>1.备份泄露<br>index.php.bak 是 index.php 的备份文件（.bak &#x3D; backup，备份）。它是 CTF 里经典的 “备份文件泄露源码” 考点。<br>为什么会有这个文件<br>网站管理员修改 index.php 时，常会手动或被编辑器自动留一份备份：<br>• 手动改名：index.php → index.php.bak<br>• 编辑器自动备份：.swp、~、.old 等<br>备份文件忘记删除，就留在了网站目录里。</p>
+<table>
+<thead>
+<tr>
+<th>你访问的文件</th>
+<th>服务器的处理</th>
+<th>你能看到什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>index.php</code></td>
+<td>认出是 PHP，<strong>执行</strong>它</td>
+<td>只看到运行后的网页，看不到源码</td>
+</tr>
+<tr>
+<td><code>index.php.bak</code></td>
+<td>不认识 <code>.bak</code>，<strong>不执行</strong></td>
+<td>直接把源码原文发给你</td>
+</tr>
+<tr>
+<td>2.查看网站源码</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>注意：此时要区别前后端源码</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>类型</td>
+<td>语言</td>
+<td>在哪执行</td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>前端代码</strong></td>
+<td>HTML、CSS、JavaScript</td>
+<td>你的浏览器里</td>
+</tr>
+<tr>
+<td><strong>后端代码</strong></td>
+<td><strong>PHP</strong>、Python、Java、JSP、ASP</td>
+<td>服务器上</td>
+</tr>
+<tr>
+<td>泄露的是后端源码</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><img src="https://note.youdao.com/yws/res/b/WEBRESOURCE975876ed22ff26cc28505f942dd2b37b" alt="image.png"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>这里就是MD5弱比较，这里可自己进行构造，但要注意此时会有双写绕过</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>双写绕过原理</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>服务端用 str_replace(‘key’, ‘’, $str) 过滤输入，想把所有 key 删掉再 parse_str。但 str_replace 是从左到右扫一遍替换，不会递归扫描替换后的结果。（就是删除key之后不会再扫描删除key）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>那就可以构造kkeyey这种字符串经过删除之后恰好是key</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>结合上面提到URL以及？可以推测出，可以直接进行修改绕过</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><img src="https://note.youdao.com/yws/res/f/WEBRESOURCE2ea790517f68cf48851149f8c2b8db5f" alt="image.png"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>得到flag</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://moo066787.github.io/2026/10/20/%E4%B8%80%E4%BA%9BWP/" data-id="cuidLtOMr7SOWZiOER8jmGgDK" data-title="10.20 Web&amp;Misc" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
     <article id="post-first-post" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -108,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://127.0.0.1:18080/2026/10/19/first-post/" data-id="cuidRmlhQDH_rfjO9z6ev_xi7" data-title="My First Blog" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://moo066787.github.io/2026/10/19/first-post/" data-id="cuidRmlhQDH_rfjO9z6ev_xi7" data-title="My First Blog" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -161,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://127.0.0.1:18080/2026/10/19/hello-world/" data-id="cuidJQLEmVGjzoQC-Q3erIy2W" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://moo066787.github.io/2026/10/19/hello-world/" data-id="cuidJQLEmVGjzoQC-Q3erIy2W" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -186,7 +431,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
     </div>
   </div>
 
@@ -196,7 +441,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a>
+      <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">学习笔记</a>
     </div>
   </div>
 
@@ -216,6 +461,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2026/10/20/%E4%B8%80%E4%BA%9BWP/">10.20 Web&amp;Misc</a>
+          </li>
         
           <li>
             <a href="/2026/10/19/first-post/">My First Blog</a>
