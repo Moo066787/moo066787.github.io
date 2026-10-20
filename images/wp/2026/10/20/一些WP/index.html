@@ -25,13 +25,13 @@
 <meta property="og:image" content="https://moo066787.github.io/images/wp/image-9.png">
 <meta property="og:image" content="https://moo066787.github.io/images/wp/image-10.png">
 <meta property="og:image" content="https://moo066787.github.io/images/wp/image-11.png">
-<meta property="og:image" content="https://moo066787.github.io/moo066787.github.io/images/wp/image-12.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp/image-12.png">
 <meta property="og:image" content="https://moo066787.github.io/images/wp/image-13.png">
 <meta property="og:image" content="https://moo066787.github.io/images/wp/image-14.png">
 <meta property="og:image" content="https://moo066787.github.io/images/wp/image-15.png">
 <meta property="og:image" content="https://moo066787.github.io/images/wp/image-16.png">
 <meta property="article:published_time" content="2026-10-20T09:36:00.000Z">
-<meta property="article:modified_time" content="2026-10-20T13:08:26.115Z">
+<meta property="article:modified_time" content="2026-10-20T13:24:50.613Z">
 <meta property="article:author" content="wzz">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
 <td></td>
 </tr>
 </tbody></table>
-<h3 id="6-备份是个好习惯"><a href="#6-备份是个好习惯" class="headerlink" title="6.备份是个好习惯"></a>6.备份是个好习惯</h3><p>涉及知识点：1.备份泄露 2.MD5弱比较 3.双写绕过<br><img src="/moo066787.github.io/images/wp/image-12.png" alt="alt text"><br><img src="/images/wp/image-13.png" alt="alt text"><br>拓展 MD5强比较<br><img src="/images/wp/image-14.png" alt="alt text"><br><strong>构造的过程就是绕过的过程</strong><br>解题过程：<br>1.备份泄露<br>index.php.bak 是 index.php 的备份文件（.bak &#x3D; backup，备份）。它是 CTF 里经典的 “备份文件泄露源码” 考点。<br>为什么会有这个文件<br>网站管理员修改 index.php 时，常会手动或被编辑器自动留一份备份：<br>• 手动改名：index.php → index.php.bak<br>• 编辑器自动备份：.swp、~、.old 等<br>备份文件忘记删除，就留在了网站目录里。</p>
+<h3 id="6-备份是个好习惯"><a href="#6-备份是个好习惯" class="headerlink" title="6.备份是个好习惯"></a>6.备份是个好习惯</h3><p>涉及知识点：1.备份泄露 2.MD5弱比较 3.双写绕过<br><img src="/images/wp/image-12.png" alt="alt text"><br><img src="/images/wp/image-13.png" alt="alt text"><br>拓展 MD5强比较<br><img src="/images/wp/image-14.png" alt="alt text"><br><strong>构造的过程就是绕过的过程</strong><br>解题过程：<br>1.备份泄露<br>index.php.bak 是 index.php 的备份文件（.bak &#x3D; backup，备份）。它是 CTF 里经典的 “备份文件泄露源码” 考点。<br>为什么会有这个文件<br>网站管理员修改 index.php 时，常会手动或被编辑器自动留一份备份：<br>• 手动改名：index.php → index.php.bak<br>• 编辑器自动备份：.swp、~、.old 等<br>备份文件忘记删除，就留在了网站目录里。</p>
 <table>
 <thead>
 <tr>
