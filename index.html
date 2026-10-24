@@ -33,9 +33,91 @@
   
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
 
-<meta name="generator" content="Hexo 8.1.2"></head>
+<!-- hexo injector head_end start -->
+<style>
+html.bh-opening {
+  overflow: hidden !important;
+}
+html.bh-opening::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: #020307;
+  z-index: 2147483646;
+}
+#bh-intro {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #020307;
+  z-index: 2147483647;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+#bh-intro.bh-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+</style>
+<script>
+if (location.pathname === '/' ||
+    location.pathname === '/index.html') {
+  document.documentElement.classList.add('bh-opening');
+}
+</script>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
 
-<body>
+<body><!-- hexo injector body_begin start -->
+<script>
+(function () {
+  if (!document.documentElement.classList.contains('bh-opening')) {
+    return;
+  }
+
+  const frame = document.createElement('iframe');
+  frame.id = 'bh-intro';
+  frame.title = '黑洞开场动画';
+
+  let finished = false;
+  let safetyTimer;
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    clearTimeout(safetyTimer);
+
+    window.removeEventListener('message', onMessage);
+    document.documentElement.classList.remove('bh-opening');
+    frame.classList.add('bh-leaving');
+
+    setTimeout(function () {
+      frame.remove();
+    }, 650);
+  }
+
+  function onMessage(event) {
+    if (event.source !== frame.contentWindow) return;
+    if (event.origin !== location.origin) return;
+
+    if (event.data && event.data.type === 'bh-intro-done') {
+      finish();
+    }
+  }
+
+  window.addEventListener('message', onMessage);
+  frame.srcdoc = "\u003c!doctype html>\u003chtml lang=\"zh-CN\">\u003chead>\u003cmeta charset=\"utf-8\">\u003cmeta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\u003cmeta name=\"theme-color\" content=\"#030408\">\u003ctitle>WZZ · 越过视界\u003c/title>\u003clink rel=\"icon\" href=\"data:,\">\u003cstyle>\n*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#020307;color:#e9e6e1;font-family:Arial,\"Microsoft YaHei\",sans-serif}canvas{position:fixed;inset:0;width:100%;height:100%;display:block}#space{z-index:0}#tunnel{z-index:3;pointer-events:none}.top{position:fixed;top:max(32px,env(safe-area-inset-top));left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;z-index:5;pointer-events:none}.brand{font-size:12px;letter-spacing:.27em;font-weight:500}.brand span{color:#737982;margin-left:15px;font-size:9px;letter-spacing:.14em}.top button{pointer-events:auto;background:#080b1144;border:1px solid #ffffff15;border-radius:30px;width:36px;height:36px;color:#9eabb9;font:14px Arial;cursor:pointer;backdrop-filter:blur(10px)}.top button:hover{color:#fff;border-color:#ffffff50}.copy{position:fixed;z-index:2;left:0;right:0;bottom:12%;text-align:center;pointer-events:none;transition:opacity 1.2s,transform 1.8s}.eyebrow{font-size:9px;letter-spacing:.65em;color:#94a4bc;font-weight:400;margin-bottom:20px}.copy h1{font-size:clamp(23px,3.1vw,42px);font-weight:300;letter-spacing:.26em;margin:0 0 14px;padding-left:.26em}.subtitle{font-size:11px;color:#9d9a99;letter-spacing:.24em}.enter{position:fixed;left:50%;top:46.5%;transform:translate(-50%,-50%);z-index:4;border:0;border-radius:50%;width:min(45vh,36vw);height:min(45vh,36vw);background:transparent;cursor:pointer;color:transparent;outline:none}.enter:focus-visible{outline:1px solid #b2dcff88;outline-offset:12px}.enter .cue{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap;font-size:9px;font-family:inherit;letter-spacing:.38em;color:#b8c8dc99;transition:color .4s,text-shadow .4s}.enter:hover .cue,.enter:focus-visible .cue{color:#f5faff;text-shadow:0 0 18px #87c9ff}.bottom{position:fixed;z-index:5;bottom:max(26px,env(safe-area-inset-bottom));left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:8px;letter-spacing:.19em;color:#596470}.bottom .status:before{content:'';width:4px;height:4px;background:#a1b8d0;border-radius:50%;display:inline-block;margin-right:9px;box-shadow:0 0 10px #a7c6ec}.skip{color:#86929f;background:none;border:0;padding:6px 0;font-size:9px;letter-spacing:.1em;cursor:pointer;text-decoration:none}#fade{position:fixed;inset:0;z-index:10;background:#000;opacity:0;pointer-events:none}body.travel .copy{opacity:0;transform:translateY(30px);transition:opacity .6s,transform 1s}body.travel .enter{pointer-events:none;opacity:0}body.travel .top,body.travel .bottom{opacity:0;transition:opacity .6s}.notice{display:none;position:fixed;inset:0;z-index:20;background:#030509;place-content:center;text-align:center;padding:30px;font-size:13px;line-height:1.9;color:#a9b8cc}.notice a{color:#fff}#fallback{display:none;position:fixed;inset:0;background:radial-gradient(ellipse at 50% 47%,#000 0 16%,#96ddff 17%,#f4d09b 18%,#9d2d12 20%,#0000 25%),radial-gradient(ellipse at 50% 48%,#975322,transparent 58%);z-index:0}.toast{position:fixed;z-index:30;left:50%;bottom:36px;transform:translateX(-50%);padding:12px 18px;background:#101822ed;border:1px solid #ffffff20;font-size:11px;color:#b7c7db;display:none;max-width:90%;line-height:1.8;text-align:center}@media(max-width:650px){.top{left:22px;right:22px;top:max(24px,env(safe-area-inset-top))}.brand{font-size:11px}.brand span{display:none}.bottom{left:22px;right:22px;font-size:7px}.bottom .coordinates{display:none}.copy{bottom:18%}.copy h1{font-size:24px;letter-spacing:.17em}.eyebrow{font-size:8px;letter-spacing:.4em}.subtitle{font-size:9px;letter-spacing:.12em}.enter{width:48vw;height:48vw;top:46%}.enter .cue{font-size:8px;letter-spacing:.25em}}\n\u003c/style>\n\u003cstyle>\n#enter {\n  visibility: hidden !important;\n  pointer-events: none !important;\n}\n\u003c/style>\n\u003c/head>\u003cbody>\n\u003ccanvas id=\"space\" aria-hidden=\"true\">\u003c/canvas>\u003cdiv id=\"fallback\">\u003c/div>\u003ccanvas id=\"tunnel\" aria-hidden=\"true\">\u003c/canvas>\n\u003cheader class=\"top\">\u003cdiv class=\"brand\" id=\"brand\">WZZ\u003cspan>PERSONAL UNIVERSE\u003c/span>\u003c/div>\u003c/header>\n\u003cbutton class=\"enter\" id=\"enter\" aria-label=\"点击黑洞，穿越进入博客\">\u003cspan class=\"cue\">点击黑洞 · 进入博客\u003c/span>\u003c/button>\n\u003cdiv class=\"copy\">\u003cdiv class=\"eyebrow\">BEYOND THE EVENT HORIZON\u003c/div>\u003ch1 id=\"headline\">越过视界，抵达我的宇宙\u003c/h1>\u003cdiv class=\"subtitle\">每一个未知，都值得奔赴。\u003c/div>\u003c/div>\n\u003cdiv id=\"fade\">\u003c/div>\u003cdiv class=\"toast\" id=\"toast\" role=\"status\">\u003c/div>\n\u003cscript>\n// ================= 可修改设置 =================\nconst CONFIG = {\n  // 填入你的完整博客网址，例如 https://example.com/blog/。\n  // 已连接此前使用的 GitHub Pages 博客。若以后更换域名，只改下面这一行。\n  blogUrl: 'https://moo066787.github.io/blog/',\n  name: 'WZZ',\n  headline: '越过视界，抵达我的宇宙',\n  duration: 1800,\n  quality: 'auto' // auto / high / low\n};\n// =============================================\nconst $=s=>document.querySelector(s),canvas=$('#space'),overlay=$('#tunnel'),ctx=overlay.getContext('2d');\nconst reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;\nlet gl,program,uniforms,raf,last=0,clock=0,paused=false,travel=null,mouse={x:0,y:0},smooth={x:0,y:0},w=innerWidth,h=innerHeight;\n$('#headline').textContent=CONFIG.headline;$('#brand').firstChild.textContent=CONFIG.name;\nconst vertex=`attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;\nconst fragment=`precision highp float;\nuniform vec2 res;uniform float time;uniform vec2 pointer;uniform float journey;uniform float portrait;\nfloat hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}\nfloat noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}\nfloat fbm(vec2 p){float n=0.;float a=.5;for(int i=0;i\u003c4;i++){n+=a*noise(p);p=p*2.03+vec2(13.7,9.2);a*=.5;}return n;}\nvec3 background(vec3 d){vec2 uv=vec2(atan(d.x,d.z)*.15915494+.5,asin(clamp(d.y,-1.,1.))*.3183099+.5);vec3 color=vec3(.0002,.00035,.0007);for(int l=0;l\u003c2;l++){float scale=l==0?550.:220.;vec2 p=uv*scale,i=floor(p),f=fract(p)-.5;float r=hash(i+float(l)*91.);vec2 off=vec2(hash(i+8.),hash(i+37.))*.65-.325;float dist=length(f-off);float star=exp(-dist*dist*(l==0?400.:160.))*step(l==0?.989:.996,r);vec3 tint=mix(vec3(.43,.62,1.),vec3(1.,.8,.55),hash(i+6.));color+=tint*star*(l==0?.65:1.5);}float mist=fbm(uv*12.)*fbm(uv*27.);color+=vec3(.0018,.0024,.005)*mist;return color;}\nvec3 disk(vec3 p){float r=length(p.xz),a=atan(p.z,p.x),spin=time*.4/pow(max(r,1.),.65);vec2 flow=vec2(r*2.4,a*4.-spin*5.);float base=fbm(flow);float warp=mix(base,noise(flow*3.+base*4.),.35);float detail=fbm(vec2(r*12.+warp*3.,a*12.-spin*13.));float ribbon=pow(.5+.5*sin(r*32.+warp*15.+detail*3.5),2.4);float filaments=pow(.5+.5*sin(r*95.+warp*21.+detail*7.),5.);float heat=pow(1.9/max(r,1.9),2.8);float density=(.25+warp*.9+detail*.26+ribbon*.55+filaments*.2)*smoothstep(1.78,2.12,r)*(1.-smoothstep(5.5,8.5,r));float doppler=clamp(1.+p.x/r*.58,.4,1.75);vec3 warm=mix(vec3(1.35,.025,.004),vec3(2.65,.69,.12),clamp(heat*2.5,0.,1.));warm=mix(warm,vec3(2.9,2.5,1.8),pow(heat,2.)*.8);return warm*density*heat*2.1*doppler;}\nvoid main(){vec2 q=(gl_FragCoord.xy-.5*res)/res.y;float frame=mix(.60,.30,portrait);q/=frame;float roll=-.075;mat2 turn=mat2(cos(roll),-sin(roll),sin(roll),cos(roll));q=turn*q;q+=pointer*.018;float z=12.-journey*10.8;vec3 ro=vec3(pointer.x*.16,2.3+pointer.y*.1,z);vec3 forward=normalize(-ro),right=normalize(cross(forward,vec3(0,1,0))),up=cross(right,forward);vec3 rd=normalize(forward*1.7+right*q.x+up*(q.y-.025));vec3 p=ro,dir=rd,col=vec3(0);float opacity=0.,captured=0.;float impact=length(cross(ro,rd));float L2=dot(cross(ro,rd),cross(ro,rd));float closest=100.;\nfor(int i=0;i\u003c88;i++){float r=length(p);closest=min(closest,r);if(r\u003c1.){captured=1.;break;}if(r>35.)break;float ds=clamp(r*.13,.055,1.4);vec3 prev=p;vec3 accel=-1.5*L2*p/pow(max(r,1.),5.);dir=normalize(dir+accel*ds);p+=dir*ds;if(prev.y*p.y\u003c0.){float f=prev.y/(prev.y-p.y);vec3 hit=mix(prev,p,f);float rr=length(hit.xz);if(rr>1.8&&rr\u003c8.5){vec3 emission=disk(hit);col+=emission*(1.-opacity);opacity+=.52*(1.-opacity);}}float rr=length(p.xz);float localGlow=exp(-abs(p.y)*5.)*smoothstep(1.9,2.4,rr)*(1.-smoothstep(5.,8.,rr));col+=vec3(1.,.24,.04)*localGlow*.008*ds;}\ncol+=background(dir)*(1.-captured)*(1.-opacity);float ring=exp(-abs(impact-2.60)*110.);float halo=exp(-abs(impact-2.63)*12.);col+=(vec3(.65,.93,1.5)*ring*.9+vec3(.12,.26,.55)*halo*.19)*(1.-opacity*.8);col+=pow(max(col,vec3(0.)),vec3(.65))*.07;col=vec3(1.)-exp(-col*1.05);col=pow(col,vec3(.4545));col*=1.-.25*smoothstep(.35,1.3,length(q));float grain=(hash(gl_FragCoord.xy+mod(time,100.))-.5)/510.;col+=grain;gl_FragColor=vec4(col,1.);}\n`;\nfunction init(){gl=canvas.getContext('webgl',{alpha:false,antialias:false,powerPreference:'high-performance',preserveDrawingBuffer:false});if(!gl)throw Error('WebGL unavailable');const compile=(type,s)=>{const shader=gl.createShader(type);gl.shaderSource(shader,s);gl.compileShader(shader);if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(shader));return shader;};program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,vertex));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const p=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(p);gl.vertexAttribPointer(p,2,gl.FLOAT,false,0,0);uniforms={};for(const n of ['res','time','pointer','journey','portrait'])uniforms[n]=gl.getUniformLocation(program,n);}\nfunction resize(){w=innerWidth;h=innerHeight;const mobile=w\u003c650,scale=CONFIG.quality==='low'?.6:CONFIG.quality==='high'?Math.min(devicePixelRatio,1.75):mobile?Math.min(devicePixelRatio,1.4):Math.min(devicePixelRatio,1.25);const limit=CONFIG.quality==='high'?2160:mobile?1100:1920;const factor=Math.min(scale,limit/Math.max(w,h));canvas.width=Math.round(w*factor);canvas.height=Math.round(h*factor);overlay.width=Math.round(w*Math.min(devicePixelRatio,1.5));overlay.height=Math.round(h*Math.min(devicePixelRatio,1.5));ctx.setTransform(overlay.width/w,0,0,overlay.height/h,0,0);if(gl)gl.viewport(0,0,canvas.width,canvas.height);}\nfunction destination(){if(CONFIG.blogUrl.trim())return new URL(CONFIG.blogUrl,location.href);const dir=new URL('./',location.href);return /\\/(portal|blackhole|solar)\\/$/.test(dir.pathname)?new URL('../',dir):new URL('blog/',dir);}\nconst streaks=Array.from({length:w\u003c650?100:220},(_,i)=>({angle:Math.random()*Math.PI*2,seed:Math.random(),depth:Math.random(),blue:Math.random()>.35,width:.4+Math.random()*1.2}));\nfunction tunnel(progress,seconds){ctx.clearRect(0,0,w,h);if(progress\u003c.16)return;const strength=Math.min(1,Math.max(0,(progress-.16)/.55)),cx=w*.5,cy=h*.48,max=Math.hypot(w,h)*.65;ctx.globalCompositeOperation='lighter';for(const s of streaks){const cycle=(s.seed+seconds*(.15+strength*.9))%1,r=30+Math.pow(cycle,2.1)*max,len=(3+strength*strength*max*.45)*Math.pow(cycle,.9),angle=s.angle+seconds*.025;const x=cx+Math.cos(angle)*r,y=cy+Math.sin(angle)*r*.8,ex=cx+Math.cos(angle)*(r+len),ey=cy+Math.sin(angle)*(r+len)*.8;const alpha=strength*Math.sin(cycle*Math.PI)*(.25+s.depth*.6);const g=ctx.createLinearGradient(x,y,ex,ey);g.addColorStop(0,'rgba(110,180,255,0)');g.addColorStop(.7,s.blue?`rgba(120,198,255,${alpha*.6})`:`rgba(255,205,132,${alpha*.6})`);g.addColorStop(1,s.blue?`rgba(225,244,255,${alpha})`:`rgba(255,239,207,${alpha})`);ctx.shadowBlur=s.depth>.94?12:0;ctx.shadowColor=s.blue?'#8bd2ff':'#ffd99c';ctx.strokeStyle=g;ctx.lineWidth=s.width*(.5+cycle)*strength;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(ex,ey);ctx.stroke();}ctx.shadowBlur=0;ctx.globalCompositeOperation='source-over';}\nfunction toast(s){$('#toast').textContent=s;$('#toast').style.display='block';}\nfunction enter(){if(travel)return;const url=destination();if(!['https:','http:','file:'].includes(url.protocol)){toast('请在源码 CONFIG.blogUrl 中设置有效的博客地址。');return;}document.body.classList.add('travel');$('#enter').disabled=true;travel={start:performance.now(),duration:reduced?500:CONFIG.duration,url:url.href,navigated:false};setTimeout(()=>{if(travel&&!travel.navigated){travel.navigated=true;parent.postMessage({type:'bh-intro-done'}, parent.location.origin);}},travel.duration);}\nfunction animate(now){raf=requestAnimationFrame(animate);const delta=Math.min((now-last)/1000,.05);last=now;clock+=delta;smooth.x+=(mouse.x-smooth.x)*.035;smooth.y+=(mouse.y-smooth.y)*.035;let journey=0;if(travel){const t=Math.min(1,(now-travel.start)/travel.duration);journey=reduced?0:Math.pow(t,3.0);if(!reduced)tunnel(t,(now-travel.start)/1000);$('#fade').style.opacity=Math.max(0,(t-.78)/.22);if(t>=1&&!travel.navigated){travel.navigated=true;parent.postMessage({type:'bh-intro-done'}, parent.location.origin);}}if(gl){gl.useProgram(program);gl.uniform2f(uniforms.res,canvas.width,canvas.height);gl.uniform1f(uniforms.time,clock);gl.uniform2f(uniforms.pointer,smooth.x,smooth.y);gl.uniform1f(uniforms.journey,journey);gl.uniform1f(uniforms.portrait,w\u003ch?1:0);gl.drawArrays(gl.TRIANGLES,0,6);window.__firstRender=true;}window.__blackholeReady=true;}\ntry{init();}catch(e){console.error(e);canvas.style.display='none';$('#fallback').style.display='block';}\nresize();$('#enter').onclick=enter;addEventListener('resize',()=>{resize();window.__firstRender=false;});addEventListener('pointermove',e=>{mouse.x=(e.clientX/w-.5)*2;mouse.y=(e.clientY/h-.5)*2;});addEventListener('keydown',e=>{if(e.code==='Enter'&&document.activeElement==document.body)enter();});addEventListener('pageshow',e=>{if(e.persisted)location.reload();});document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);}else{last=performance.now();raf=requestAnimationFrame(animate);}});canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();gl=null;canvas.style.display='none';$('#fallback').style.display='block';});last=performance.now();raf=requestAnimationFrame(animate);\n\u003c/script>\n\u003cscript>\n(function () {\n  const started = performance.now();\n\n  function startWhenReady() {\n    if (window.__firstRender) {\n      setTimeout(function () {\n        enter();\n      }, 500);\n      return;\n    }\n\n    if (performance.now() - started > 8000) {\n      parent.postMessage(\n        {type: 'bh-intro-done'},\n      parent.location.origin\n      );\n      return;\n    }\n\n    setTimeout(startWhenReady, 100);\n  }\n\n  startWhenReady();\n})();\n\u003c/script>\n\u003c/body>\u003c/html>\n";
+  document.body.appendChild(frame);
+
+  // 加载异常时仍能正常进入博客。
+  safetyTimer = setTimeout(finish, 16000);
+
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted) finish();
+  });
+})();
+</script><!-- hexo injector body_begin end -->
   <div id="container">
     <div id="wrap">
       <header id="header">
@@ -77,6 +159,110 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-CTF-WP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/10/24/CTF-WP/" class="article-date">
+  <time class="dt-published" datetime="2026-10-24T08:23:31.000Z" itemprop="datePublished">2026-10-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTF%E9%A2%98%E8%A7%A3/">CTF题解</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/10/24/CTF-WP/">CTF WP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="Base64编码隐藏"><a href="#Base64编码隐藏" class="headerlink" title="Base64编码隐藏"></a>Base64编码隐藏</h2><p>据题可知，此web题目涉及base64编码的解码，加之此题<strong>难度极低</strong>，可以想到其可能隐藏在前端源码里面。</p>
+<h3 id="（1）F12查看前端源码"><a href="#（1）F12查看前端源码" class="headerlink" title="（1）F12查看前端源码"></a>（1）F12查看前端源码</h3><p><img src="/images/wp2/image-17.png" alt="alt text"><br>可以看到一串base64编码的字符串：<strong>Q1RGe2Vhc3lfYmFzZTY0fQ&#x3D;&#x3D;</strong></p>
+<h3 id="（2）进行base64解码"><a href="#（2）进行base64解码" class="headerlink" title="（2）进行base64解码"></a>（2）进行base64解码</h3><p><img src="/images/wp2/image-18.png" alt="alt text"><br>得到flag。<br><em>此题可知网站的前端：元素，网络，应用等可能隐藏这信息，可以优先看这些地方。</em></p>
+<h2 id="HTTP-头注入"><a href="#HTTP-头注入" class="headerlink" title="HTTP 头注入"></a>HTTP 头注入</h2><h3 id="（1）查看一下web的内容"><a href="#（1）查看一下web的内容" class="headerlink" title="（1）查看一下web的内容"></a>（1）查看一下web的内容</h3><p><em>其实想到这个是因为再浏览器内查看比较麻烦，终端查看比较明了。</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -is https://a78e7eda-2ef1-416a-ad46-cdaa9da2a1e3.challenge.ctf.show</span><br></pre></td></tr></table></figure>
+<p><img src="/images/wp2/image-19.png" alt="alt text"><br>此处可见允许了很多指令的功能，这与http头注入有关<br>继续下翻<br><img src="/images/wp2/image-20.png" alt="alt text"><br>在此处看到了if这个指令，可以大体了解到如果你输入的密码经过base64加密后和正确的密码不一样会报错，那就可以想到如果一样那会怎样呢？(这里的correctpassword是上题中的flag，这个在上面有所显示)</p>
+<h3 id="（2）进行试验"><a href="#（2）进行试验" class="headerlink" title="（2）进行试验"></a>（2）进行试验</h3><p><img src="/images/wp2/image-21.png" alt="alt text"><br>可以看到此处出现<strong>你必须使用ctf-show-brower</strong>这个浏览器访问才可以进入，这就是本题目http头注入的考点，改变UA来进行访问。为了方便的话我用的是BP进行修改。</p>
+<h3 id="（3）BP的操作"><a href="#（3）BP的操作" class="headerlink" title="（3）BP的操作"></a>（3）BP的操作</h3><p>首先在其内置浏览器里打开网页，再通过历史请求找到一条关于登录二点post请求<br><img src="/images/wp2/image-22.png" alt="alt text"><br>将这条请求发送repeater<br><img src="/images/wp2/image-23.png" alt="alt text"><br>这里对repeater做出注释：Repeater&#x3D; 抓到一个包后，可以反复修改、反复重发，看每次响应变化。 改 HTTP 头注入题（比如伪造 User-Agent）最常用的就是它。<br>题目中让用特定的浏览器来访问，那就改UA<br><img src="/images/wp2/image-24.png" alt="alt text"><br>将上述蓝色标记的地方改为目标浏览器，再进行发送访问，最后找到flag。</p>
+<h2 id="Base64多层嵌套解码"><a href="#Base64多层嵌套解码" class="headerlink" title="Base64多层嵌套解码"></a>Base64多层嵌套解码</h2><p><em>其整体思路采用倒退，主要是看懂源码，后续操作和上一题保持一致</em></p>
+<h3 id="（1）"><a href="#（1）" class="headerlink" title="（1）"></a>（1）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return btoa(encoded) === correctPassword;</span><br></pre></td></tr></table></figure>
+<p>知：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">btoa()：Base64 编码。</span><br><span class="line">atob()：Base64 解码。</span><br></pre></td></tr></table></figure>
+<p>可以从上述源码中得到，最后一串字符串经过base64编码后得到password<br>已知password为：SXpVRlF4TTFVelJtdFNSazB3VTJ4U1UwNXFSWGRVVlZrOWNWYzU&#x3D;（在源码中已经说明）<br>那就对password进行解码得到：<br>IzUFQxM1UzRmtSRk0wU2xSU05qRXdUVVk9cVc5</p>
+<h3 id="（2）"><a href="#（2）" class="headerlink" title="（2）"></a>（2）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encoded = btoa(&#x27;aB3&#x27; + encoded + &#x27;qW9&#x27;).substr(2);</span><br></pre></td></tr></table></figure>
+<p><em>substr(2)</em> 指的是删除前两个字符。aB3 -&gt; YUIz 和上述Iz一样这就对应了把前两个字符YU删去了，那倒退时就要补回来，进行解码，再去掉固定的开头 aB3 和结尾 qW9。得到：PT13U3FkRFM0SlRSNjEwTUY&#x3D;</p>
+<h3 id="（3）"><a href="#（3）" class="headerlink" title="（3）"></a>（3）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encoded = btoa(encoded.split(&#x27;&#x27;).reverse().join(&#x27;&#x27;));</span><br></pre></td></tr></table></figure>
+<p>对于<em>split(‘’).reverse().join(‘’)</em> 做出解释：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+<th>得到的结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.split(&#39;&#39;)</code></td>
+<td>把字符串拆成字符数组</td>
+<td><code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]</code></td>
+</tr>
+<tr>
+<td><code>.reverse()</code></td>
+<td>把数组顺序反过来</td>
+<td><code>[&#39;d&#39;, &#39;c&#39;, &#39;b&#39;, &#39;a&#39;]</code></td>
+</tr>
+<tr>
+<td><code>.join(&#39;&#39;)</code></td>
+<td>把数组拼回字符串，中间不加东西</td>
+<td><code>&quot;dcba&quot;</code></td>
+</tr>
+<tr>
+<td><code>btoa(...)</code></td>
+<td>对倒序后的字符串做 Base64 编码</td>
+<td><code>&quot;ZGNiYQ==&quot;</code></td>
+</tr>
+<tr>
+<td>那倒退思路就是：解码，再反转</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>得到：FM016RTJ4SDdqSw&#x3D;&#x3D;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="（4）"><a href="#（4）" class="headerlink" title="（4）"></a>（4）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encoded = btoa(encoded + &#x27;xH7jK&#x27;).slice(3);</span><br></pre></td></tr></table></figure>
+<p>相当于FM016RTJ4SDdqSw&#x3D;&#x3D;是删过前三个字符得到的结果，并且已知完整字符串进行解码后缀一定含xH7jK<br>进行枚举得到：TVRFM016RTJ4SDdqSw&#x3D;&#x3D;<br>解码得到：MTE3MzE2xH7jK</p>
+<h3 id="（5）"><a href="#（5）" class="headerlink" title="（5）"></a>（5）</h3><p>最后再解码得到：117316，这个就是密码，进行登录。</p>
+<h3 id="（6）"><a href="#（6）" class="headerlink" title="（6）"></a>（6）</h3><p><img src="/images/wp2/image-25.png" alt="alt text"><br>和上一题的思路一样，这里不再做详细展开<br>得到flag。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://moo066787.github.io/2026/10/24/CTF-WP/" data-id="cuidozG8kOrxNTpbn_q1Xmgwy" data-title="CTF WP" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF-Web/" rel="tag">-CTF -Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-一些WP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2026/10/20/%E4%B8%80%E4%BA%9BWP/" class="article-date">
@@ -99,16 +285,16 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="CTF-Web和Misc-WP"><a href="#CTF-Web和Misc-WP" class="headerlink" title="CTF Web和Misc WP"></a>CTF Web和Misc WP</h1><h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="1-神秘的文件"><a href="#1-神秘的文件" class="headerlink" title="1.神秘的文件"></a><strong>1.神秘的文件</strong></h3><p>此题涉及：1.已知明文攻击 2.文件的格式转换（docx—&gt;zip）<br>解题过程：<br>1.下载并打开文件，其有flag.zip和logo.png两个文件<br><img src="/images/wp/image.png" alt="alt text"><br>据此可以想到有关图片隐写的方向，但是通过分离，LSB等操作之后并没有得到有效信息。如果此时打开flag.zip文件时发现<br><img src="/images/wp/image-1.png" alt="alt text"><br>里面有加密的logo.png其CRC32与外面的logo.png一样，不由得想到做已知明文攻击这一方法。<br>2.进行已知明文攻击，其实可以联想到之前做过的<strong>压缩包真的很简单</strong>这个题目，他是用png头做已知明文攻击，此时与本题出现区别即zip的格式<strong>store</strong>与<strong>Deflate（压缩）</strong>，前者原文件和压缩文件一样，即原样存，不压缩，文件多大就是多大，再者是压缩文件比原文件大（压缩后 ≥ 原始（相等或略大几字节）→ 没压缩（存储模式）→ 文件头能用）；后者是压缩后 &lt; 原始 → 真压缩了 → 文件头失效。那进行明文攻击的方式就不一样了（其实也可以根据题目给出的内容来判断，此题目是给了内外两个一样的png图片，一个加密，一个未加密，可以得出）<br>3.进行实操，用的bkcrack工具。先将外面未加密的png图片按照（flag.zip）原样的压缩方式进行压缩<br><img src="/images/wp/image-2.png" alt="alt text"><br><img src="/images/wp/image-3.png" alt="alt text"><br>此处选择标准zip即可，得到压缩包，进行明文攻击。<br>3.输入指令,得到密钥</p>
+        <h1 id="CTF-Web和Misc-WP"><a href="#CTF-Web和Misc-WP" class="headerlink" title="CTF Web和Misc WP"></a>CTF Web和Misc WP</h1><h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="1-神秘的文件"><a href="#1-神秘的文件" class="headerlink" title="1.神秘的文件"></a><strong>1.神秘的文件</strong></h3><p>此题涉及：1.已知明文攻击 2.文件的格式转换（docx—&gt;zip）<br>解题过程：<br>1.下载并打开文件，其有flag.zip和logo.png两个文件<br><img src="/images/wp1/image.png" alt="alt text"><br>据此可以想到有关图片隐写的方向，但是通过分离，LSB等操作之后并没有得到有效信息。如果此时打开flag.zip文件时发现<br><img src="/images/wp1/image-1.png" alt="alt text"><br>里面有加密的logo.png其CRC32与外面的logo.png一样，不由得想到做已知明文攻击这一方法。<br>2.进行已知明文攻击，其实可以联想到之前做过的<strong>压缩包真的很简单</strong>这个题目，他是用png头做已知明文攻击，此时与本题出现区别即zip的格式<strong>store</strong>与<strong>Deflate（压缩）</strong>，前者原文件和压缩文件一样，即原样存，不压缩，文件多大就是多大，再者是压缩文件比原文件大（压缩后 ≥ 原始（相等或略大几字节）→ 没压缩（存储模式）→ 文件头能用）；后者是压缩后 &lt; 原始 → 真压缩了 → 文件头失效。那进行明文攻击的方式就不一样了（其实也可以根据题目给出的内容来判断，此题目是给了内外两个一样的png图片，一个加密，一个未加密，可以得出）<br>3.进行实操，用的bkcrack工具。先将外面未加密的png图片按照（flag.zip）原样的压缩方式进行压缩<br><img src="/images/wp1/image-2.png" alt="alt text"><br><img src="/images/wp1/image-3.png" alt="alt text"><br>此处选择标准zip即可，得到压缩包，进行明文攻击。<br>3.输入指令,得到密钥</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bkcrack -C flag.zip -c logo.zip -P logo.zip -p logo.png</span><br></pre></td></tr></table></figure>
-<p><img src="/images/wp/image-4.png" alt="alt text"><br>再输入</p>
+<p><img src="/images/wp1/image-4.png" alt="alt text"><br>再输入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bkcrack.exe -C flag.zip -k 密钥 -D moo.zip</span><br></pre></td></tr></table></figure>
-<p><img src="/images/wp/image-5.png" alt="alt text"><br>此步生成一个和flag.zip文件一样的但是未加密的moo.zip文件<br>打开<br><img src="/images/wp/image-6.png" alt="alt text"><br>此处可用010查看一下 发现其是压缩包格式的，将其后缀改为zip，打开，在其dcoprops文件夹里找到flag。<br><img src="/images/wp/image-7.png"><br>用base64解码即可</p>
+<p><img src="/images/wp1/image-5.png" alt="alt text"><br>此步生成一个和flag.zip文件一样的但是未加密的moo.zip文件<br>打开<br><img src="/images/wp1/image-6.png" alt="alt text"><br>此处可用010查看一下 发现其是压缩包格式的，将其后缀改为zip，打开，在其dcoprops文件夹里找到flag。<br><img src="/images/wp1/image-7.png"><br>用base64解码即可</p>
 <h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="1-Linux的基操"><a href="#1-Linux的基操" class="headerlink" title="1.Linux的基操"></a>1.Linux的基操</h3><p>1.认识终端<br>pwd — Print Working Directory，显示当前所在目录<br>• whoami — 显示当前登录的用户名<br>• echo — 输出文本内容<br>• &gt; — 重定向符号，将输出写入文件（覆盖）<br>示例<br>$ pwd<br>&#x2F;home&#x2F;user<br>$ whoami<br>user<br>$ echo hello &gt; file.txt<br>注意<br>• ~ 代表当前用户的家目录<br>• &gt; 会覆盖文件内容，&gt;&gt; 是追加<br>2.echo 与命令替换<br>• echo 将文本输出到终端或文件<br>• $(命令) 是命令替换，会先执行括号内的命令，再将结果替换到外层命令中<br>示例<br>$ echo Hello World<br>Hello World<br>$ echo $(date)<br>Mon Jan 1 12:00:00 UTC 2025<br>3.获取帮助<br>Linux 中有多种方式查看命令帮助：<br>• man 命令 — 查看手册页（按 q 退出）<br>• 命令 –help — 查看简要帮助<br>• type 命令 — 查看命令类型<br>示例<br>$ ls –help<br>Usage: ls [OPTION]… [FILE]…<br>示例：ls –help &gt; ~&#x2F;ls_help.txt<br>4.ls与目录浏览<br>ls 命令<br>ls 用于列出目录内容。<br>常用参数<br>• ls — 列出当前目录<br>• ls -l — 长格式（权限、大小、时间）<br>• ls -a — 显示隐藏文件（以 . 开头）<br>• ls -la — 长格式 + 隐藏文件<br>• ls -lh — 人类可读的文件大小<br>cd 命令<br>• cd &#x2F;path — 切换到指定目录<br>• cd .. — 返回上级目录<br>• cd ~ 或 cd — 回到家目录<br>5.创建目录和文件<br>创建文件与目录<br>mkdir — 创建目录<br>• mkdir dir — 创建单个目录<br>• mkdir -p a&#x2F;b&#x2F;c — 递归创建多级目录<br>touch — 创建空文件<br>• touch file.txt — 创建空文件<br>• 如果文件已存在，更新修改时间<br>&amp;&amp; — 连续执行<br>• cmd1 &amp;&amp; cmd2 — cmd1 成功后才执行 cmd2<br>6.复制与移动<br>cp 与 mv<br>cp — 复制<br>• cp src dst — 复制文件<br>• cp -r dir1 dir2 — 递归复制目录<br>mv — 移动&#x2F;重命名<br>• mv old new — 重命名文件<br>• mv file dir&#x2F; — 移动文件到目录<br>7.删除命令<br>rm 命令<br>• rm file — 删除文件<br>• rm -r dir — 递归删除目录及其内容<br>• rm -f file — 强制删除，不提示<br>• rmdir dir — 删除空目录<br>注意<br>• rm 删除后无法恢复，请谨慎使用<br>• 永远不要运行 rm -rf &#x2F;<br>8.查看文件内容<br>• cat file — 一次性输出全部内容<br>• less file — 分页查看（q 退出，空格翻页）<br>• more file — 类似 less 的简化版<br>9.head 与 tail<br>• head -n 3 file — 显示前 3 行<br>• tail -n 3 file — 显示最后 3 行<br>• tail -f file — 实时跟踪文件末尾（日志常用）<br>10.nano 编辑器<br>nano 是一个简单易用的终端文本编辑器。<br>基本操作<br>• nano file — 打开或创建文件<br>• 直接输入文字即可编辑<br>• Ctrl+O — 保存文件<br>• Ctrl+X — 退出编辑器<br>• Ctrl+K — 剪切当前行<br>• Ctrl+U — 粘贴<br>11.vim 基础<br>vim 是 Linux 最强大的文本编辑器之一。<br>三种模式<br>• 普通模式 — 默认模式，用于导航和命令<br>• 插入模式 — 按 i 进入，用于输入文字<br>• 命令模式 — 按 : 进入，用于保存退出等<br>常用操作<br>• i — 进入插入模式<br>• Esc — 回到普通模式<br>• :w — 保存<br>• :q — 退出<br>• :wq — 保存并退出<br>• :q! — 不保存强制退出<br>• dd — 删除当前行<br>• yy — 复制当前行<br>• p — 粘贴<br>打开vim vi+<br>12.grep 命令<br>grep 用于在文件中搜索匹配的文本行。<br>常用参数<br>• grep pattern file — 搜索匹配行<br>• grep -i — 忽略大小写<br>• grep -n — 显示行号<br>• grep -r — 递归搜索目录<br>• grep -v — 反向匹配（不包含的行）<br>• grep -c — 只显示匹配行数<br>13.find 命令<br>find 用于在目录树中查找文件。<br>常用参数<br>• find &#x2F;path -name ‘pattern’ — 按文件名查找<br>• find &#x2F;path -type f — 只查找文件<br>• find &#x2F;path -type d — 只查找目录<br>• find &#x2F;path -size +1M — 查找大于 1MB 的文件<br>• find &#x2F;path -mtime -7 — 最近 7 天修改过的文件<br>若要查找文件名中存在的字符要加*（表示占位符）只要有这些字符都会被找到<br>14.管道 |<br>管道将前一个命令的输出作为后一个命令的输入。<br>语法<br>命令1 | 命令2 | 命令3<br>常见用法<br>• ls | wc -l — 统计文件数量<br>• cat file | grep pattern — 搜索文件内容<br>• ps aux | grep nginx — 查找进程<br>• history | tail -20 — 查看最近 20 条历史命令<br>15.未完待续…</p>
 <h3 id="2-滑稽"><a href="#2-滑稽" class="headerlink" title="2.滑稽"></a>2.滑稽</h3><p>此题没有别的信息 第一步要想到查看前端源码里面<br>很简单，元素里就有flag</p>
-<h3 id="3-计算器"><a href="#3-计算器" class="headerlink" title="3.计算器"></a>3.计算器</h3><p>此题在输入时只可以输入1位数字<br>在修改栏（元素）我们可以找到input maxlength那一项 4.把“1“改为“2”<br><img src="/images/wp/image-8.png" alt="alt text"><br>在验证格填写结果<br>最终拿到flag<br>这种操作叫 “前端验证绕过”，也叫”客户端验证绕过”（Front-end &#x2F; Client-side Validation Bypass）。<br>为什么能改<br>HTML、CSS、JavaScript 都是运行在你自己浏览器里的代码，你对它有完全控制权：<br>• 你改的只是本地页面的显示和行为，不影响服务器<br>• 网页怎么限制你，你就能怎么改<br>• 这就是 “前端验证” 的天生弱点 ——前端的限制只能防君子，防不了会 F12 的人<br>常见的前端限制（CTF 常考）<br>你看到的<br>含义<br>绕过方法<br>maxlength&#x3D;”2”<br>限制输入长度<br>改成更大数字或删掉<br>disabled<br>按钮 &#x2F; 输入框被禁用<br>删掉 disabled 属性<br>readonly<br>只读不能改<br>删掉 readonly<br>type&#x3D;”hidden”<br>隐藏字段（flag 常藏这）<br>元素面板直接看 value<br>JS 里写死密码 &#x2F; 判断<br>前端 JS 验证<br>看 Sources 里的 JS 找答案<br>核心思想<br>凡是只在浏览器里做的验证，都不可信。 真正安全的校验必须放在服务器后端，前端校验只是为了用户体验，不是安全措施。<br>这类题的套路就是：F12 看哪里被限制了 → 直接改 HTML&#x2F;JS → 绕过。</p>
-<h3 id="4-GET"><a href="#4-GET" class="headerlink" title="4.GET"></a>4.GET</h3><p><img src="/images/wp/image-9.png" alt="alt text"><br>php代码翻译<br>$what &#x3D; $_GET[‘what’];    &#x2F;&#x2F; 从 URL 地址栏取参数 what 的值，存进变量 $what<br>echo $what;               &#x2F;&#x2F; 把你传进来的值，显示到网页上<br>if($what &#x3D;&#x3D; ‘flag’)       &#x2F;&#x2F; 判断：如果你传的 what 等于 “flag”<br>echo ‘flag{****}’;        &#x2F;&#x2F; 就输出 flag<br>注：php的三种等号<br>$a &#x3D; 1;      &#x2F;&#x2F; 单等号：赋值（把1放进$a）<br>$a &#x3D;&#x3D; 1;     &#x2F;&#x2F; 双等号：比较值是否相等（弱比较，不看类型）<br>$a &#x3D;&#x3D;&#x3D; 1;    &#x2F;&#x2F; 三等号：比较值和类型是否完全相等（强比较）<br>服务器去判断你输入的值是否匹配，如果匹配就输出flag<br>URL里的&#x3D;指的是你把值传给服务器</p>
-<h3 id="5-POST"><a href="#5-POST" class="headerlink" title="5.POST"></a>5.POST</h3><p><img src="/images/wp/image-10.png" alt="alt text"><br>此题目为post传参，curl 里 POST 传参就用 -d（全称 –data）<br><img src="/images/wp/image-11.png" alt="alt text"></p>
+<h3 id="3-计算器"><a href="#3-计算器" class="headerlink" title="3.计算器"></a>3.计算器</h3><p>此题在输入时只可以输入1位数字<br>在修改栏（元素）我们可以找到input maxlength那一项 4.把“1“改为“2”<br><img src="/images/wp1/image-8.png" alt="alt text"><br>在验证格填写结果<br>最终拿到flag<br>这种操作叫 “前端验证绕过”，也叫”客户端验证绕过”（Front-end &#x2F; Client-side Validation Bypass）。<br>为什么能改<br>HTML、CSS、JavaScript 都是运行在你自己浏览器里的代码，你对它有完全控制权：<br>• 你改的只是本地页面的显示和行为，不影响服务器<br>• 网页怎么限制你，你就能怎么改<br>• 这就是 “前端验证” 的天生弱点 ——前端的限制只能防君子，防不了会 F12 的人<br>常见的前端限制（CTF 常考）<br>你看到的<br>含义<br>绕过方法<br>maxlength&#x3D;”2”<br>限制输入长度<br>改成更大数字或删掉<br>disabled<br>按钮 &#x2F; 输入框被禁用<br>删掉 disabled 属性<br>readonly<br>只读不能改<br>删掉 readonly<br>type&#x3D;”hidden”<br>隐藏字段（flag 常藏这）<br>元素面板直接看 value<br>JS 里写死密码 &#x2F; 判断<br>前端 JS 验证<br>看 Sources 里的 JS 找答案<br>核心思想<br>凡是只在浏览器里做的验证，都不可信。 真正安全的校验必须放在服务器后端，前端校验只是为了用户体验，不是安全措施。<br>这类题的套路就是：F12 看哪里被限制了 → 直接改 HTML&#x2F;JS → 绕过。</p>
+<h3 id="4-GET"><a href="#4-GET" class="headerlink" title="4.GET"></a>4.GET</h3><p><img src="/images/wp1/image-9.png" alt="alt text"><br>php代码翻译<br>$what &#x3D; $_GET[‘what’];    &#x2F;&#x2F; 从 URL 地址栏取参数 what 的值，存进变量 $what<br>echo $what;               &#x2F;&#x2F; 把你传进来的值，显示到网页上<br>if($what &#x3D;&#x3D; ‘flag’)       &#x2F;&#x2F; 判断：如果你传的 what 等于 “flag”<br>echo ‘flag{****}’;        &#x2F;&#x2F; 就输出 flag<br>注：php的三种等号<br>$a &#x3D; 1;      &#x2F;&#x2F; 单等号：赋值（把1放进$a）<br>$a &#x3D;&#x3D; 1;     &#x2F;&#x2F; 双等号：比较值是否相等（弱比较，不看类型）<br>$a &#x3D;&#x3D;&#x3D; 1;    &#x2F;&#x2F; 三等号：比较值和类型是否完全相等（强比较）<br>服务器去判断你输入的值是否匹配，如果匹配就输出flag<br>URL里的&#x3D;指的是你把值传给服务器</p>
+<h3 id="5-POST"><a href="#5-POST" class="headerlink" title="5.POST"></a>5.POST</h3><p><img src="/images/wp1/image-10.png" alt="alt text"><br>此题目为post传参，curl 里 POST 传参就用 -d（全称 –data）<br><img src="/images/wp1/image-11.png" alt="alt text"></p>
 <table>
 <thead>
 <tr>
@@ -209,7 +395,7 @@
 <td></td>
 </tr>
 </tbody></table>
-<h3 id="6-备份是个好习惯"><a href="#6-备份是个好习惯" class="headerlink" title="6.备份是个好习惯"></a>6.备份是个好习惯</h3><p>涉及知识点：1.备份泄露 2.MD5弱比较 3.双写绕过<br><img src="/images/wp/image-12.png" alt="alt text"><br><img src="/images/wp/image-13.png" alt="alt text"><br>拓展 MD5强比较<br><img src="/images/wp/image-14.png" alt="alt text"><br><strong>构造的过程就是绕过的过程</strong><br>解题过程：<br>1.备份泄露<br>index.php.bak 是 index.php 的备份文件（.bak &#x3D; backup，备份）。它是 CTF 里经典的 “备份文件泄露源码” 考点。<br>为什么会有这个文件<br>网站管理员修改 index.php 时，常会手动或被编辑器自动留一份备份：<br>• 手动改名：index.php → index.php.bak<br>• 编辑器自动备份：.swp、~、.old 等<br>备份文件忘记删除，就留在了网站目录里。</p>
+<h3 id="6-备份是个好习惯"><a href="#6-备份是个好习惯" class="headerlink" title="6.备份是个好习惯"></a>6.备份是个好习惯</h3><p>涉及知识点：1.备份泄露 2.MD5弱比较 3.双写绕过<br><img src="/images/wp1/image-12.png" alt="alt text"><br><img src="/images/wp1/image-13.png" alt="alt text"><br>拓展 MD5强比较<br><img src="/images/wp1/image-14.png" alt="alt text"><br><strong>构造的过程就是绕过的过程</strong><br>解题过程：<br>1.备份泄露<br>index.php.bak 是 index.php 的备份文件（.bak &#x3D; backup，备份）。它是 CTF 里经典的 “备份文件泄露源码” 考点。<br>为什么会有这个文件<br>网站管理员修改 index.php 时，常会手动或被编辑器自动留一份备份：<br>• 手动改名：index.php → index.php.bak<br>• 编辑器自动备份：.swp、~、.old 等<br>备份文件忘记删除，就留在了网站目录里。</p>
 <table>
 <thead>
 <tr>
@@ -264,7 +450,7 @@
 <td></td>
 </tr>
 <tr>
-<td><img src="/images/wp/image-15.png" alt="alt text"></td>
+<td><img src="/images/wp1/image-15.png" alt="alt text"></td>
 <td></td>
 <td></td>
 </tr>
@@ -294,7 +480,7 @@
 <td></td>
 </tr>
 <tr>
-<td><img src="/images/wp/image-16.png" alt="alt text"></td>
+<td><img src="/images/wp1/image-16.png" alt="alt text"></td>
 <td></td>
 <td></td>
 </tr>
@@ -308,7 +494,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://moo066787.github.io/2026/10/20/%E4%B8%80%E4%BA%9BWP/" data-id="cuidLtOMr7SOWZiOER8jmGgDK" data-title="10.20 Web&amp;Misc" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://moo066787.github.io/2026/10/20/%E4%B8%80%E4%BA%9BWP/" data-id="cuidJB0Ca573My85HBIvLn7YG" data-title="10.20 Web&amp;Misc" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -353,7 +539,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://moo066787.github.io/2026/10/19/first-post/" data-id="cuidRmlhQDH_rfjO9z6ev_xi7" data-title="My First Blog" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://moo066787.github.io/2026/10/19/first-post/" data-id="cuid4KIjDt5lnltWnPHZZS4ep" data-title="My First Blog" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -406,7 +592,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://moo066787.github.io/2026/10/19/hello-world/" data-id="cuidJQLEmVGjzoQC-Q3erIy2W" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://moo066787.github.io/2026/10/19/hello-world/" data-id="cuidl37jFPrFQCSaObLDuPHBo" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -425,13 +611,20 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF%E9%A2%98%E8%A7%A3/">CTF题解</a></li></ul>
+    </div>
+  </div>
+
 
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF-Web/" rel="tag">-CTF -Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
     </div>
   </div>
 
@@ -441,7 +634,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">学习笔记</a>
+      <a href="/tags/CTF-Web/" style="font-size: 10px;">-CTF -Web</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">学习笔记</a>
     </div>
   </div>
 
@@ -461,6 +654,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2026/10/24/CTF-WP/">CTF WP</a>
+          </li>
         
           <li>
             <a href="/2026/10/20/%E4%B8%80%E4%BA%9BWP/">10.20 Web&amp;Misc</a>
