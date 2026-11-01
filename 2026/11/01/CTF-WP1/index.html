@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CTF WP | wzz的学习记录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="WebHTTPS中间人攻击对题目的解读：HTTPS &#x3D; HTTP + TLS 保护，抓到的数据通常是加密的。中间人：相当于是用户和网站之间有拦截的人，可以篡改双方发送的信息。（中间人对浏览器假装自己是网站，对网站则代替你发送请求。如果成功，就可能看到密码、Cookie，或者修改网页返回的内容。） （1）进行内容的查看包含一个TLS日志文件和一个pcap文件那就可以对TLS日志进行解密处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF WP">
+<meta property="og:url" content="https://moo066787.github.io/2026/11/01/CTF-WP1/index.html">
+<meta property="og:site_name" content="wzz的学习记录">
+<meta property="og:description" content="WebHTTPS中间人攻击对题目的解读：HTTPS &#x3D; HTTP + TLS 保护，抓到的数据通常是加密的。中间人：相当于是用户和网站之间有拦截的人，可以篡改双方发送的信息。（中间人对浏览器假装自己是网站，对网站则代替你发送请求。如果成功，就可能看到密码、Cookie，或者修改网页返回的内容。） （1）进行内容的查看包含一个TLS日志文件和一个pcap文件那就可以对TLS日志进行解密处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-26.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-27.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-29.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-30.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-31.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-32.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-34.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-36.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-37.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-38.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-39.png">
+<meta property="og:image" content="https://moo066787.github.io/images/wp3/image-40.png">
+<meta property="article:published_time" content="2026-11-01T05:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-01T06:06:38.770Z">
+<meta property="article:author" content="wzz">
+<meta property="article:tag" content="-CTF -Web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moo066787.github.io/images/wp3/image-26.png">
+  
+    <link rel="alternate" href="/atom.xml" title="wzz的学习记录" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">wzz的学习记录</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习与成长</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://moo066787.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-CTF-WP1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/11/01/CTF-WP1/" class="article-date">
+  <time class="dt-published" datetime="2026-11-01T05:00:00.000Z" itemprop="datePublished">2026-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTF%E9%A2%98%E8%A7%A3/">CTF题解</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      CTF WP
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="HTTPS中间人攻击"><a href="#HTTPS中间人攻击" class="headerlink" title="HTTPS中间人攻击"></a>HTTPS中间人攻击</h2><p>对题目的解读：HTTPS &#x3D; HTTP + TLS 保护，抓到的数据通常是加密的。<br>中间人：相当于是用户和网站之间有拦截的人，可以篡改双方发送的信息。（中间人对浏览器假装自己是网站，对网站则代替你发送请求。如果成功，就可能看到密码、Cookie，或者修改网页返回的内容。）</p>
+<h3 id="（1）进行内容的查看"><a href="#（1）进行内容的查看" class="headerlink" title="（1）进行内容的查看"></a>（1）进行内容的查看</h3><p>包含一个TLS日志文件和一个pcap文件<br><img src="/images/wp3/image-26.png" alt="alt text"><br>那就可以对TLS日志进行解密处理，看到里面内容</p>
+<h3 id="（2）对TLS的处理"><a href="#（2）对TLS的处理" class="headerlink" title="（2）对TLS的处理"></a>（2）对TLS的处理</h3><p>图里有 CLIENT_TRAFFIC_SECRET_0、SERVER_TRAFFIC_SECRET_0，可以用来尝试解密配套抓包里的 HTTPS<br><img src="/images/wp3/image-27.png" alt="alt text"><br>具体流程：1.用 Wireshark 打开 .pcap 文件 2.点击顶部 编辑 → 首选项 → Protocols（协议）→ TLS 3.找到 (Pre)-Master-Secret log filename，点右边的「浏览」，选择刚才的 sslkey.log<br>得到<br><img src="/images/wp3/image-29.png" alt="alt text"><br>找到http的数据包，这就是https解密后的数据包，进行http流的追踪<br>得到flag<br><img src="/images/wp3/image-30.png" alt="alt text"><br><em>这里进行注释：1.TLS：全称是 Transport Layer Security，中文叫“传输层安全协议”。它负责保护你和网站之间传输的数据。</em><br>2.TLS的开头结构：名称  连接标识（Client Random）  密钥材料 比如：SERVER_HANDSHAKE_TRAFFIC_SECRET</p>
+<table>
+<thead>
+<tr>
+<th>单词</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CLIENT</code></td>
+<td>客户端，比如你的浏览器</td>
+</tr>
+<tr>
+<td><code>SERVER</code></td>
+<td>服务器，比如你访问的网站</td>
+</tr>
+<tr>
+<td><code>HANDSHAKE</code></td>
+<td>握手，也就是正式传数据前协商连接</td>
+</tr>
+<tr>
+<td><code>TRAFFIC</code></td>
+<td>通信流量</td>
+</tr>
+<tr>
+<td><code>SECRET</code></td>
+<td>秘密材料，用于派生加密密钥</td>
+</tr>
+<tr>
+<td>3.Wireshark可以借助匹配的 TLS 密钥日志，解密抓包里的通信</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Cookie伪造"><a href="#Cookie伪造" class="headerlink" title="Cookie伪造"></a>Cookie伪造</h2><p>就是人为构造或修改浏览器发送的Cookie，尝试让服务器把你当成另一个用户，或者给你更高的权限<br>本题就是伪装成管理员<br>此类题目会给出一些提示如：set-cookie等</p>
+<h3 id="（1）用BP打开查看一些请求和回复文"><a href="#（1）用BP打开查看一些请求和回复文" class="headerlink" title="（1）用BP打开查看一些请求和回复文"></a>（1）用BP打开查看一些请求和回复文</h3><p><img src="/images/wp3/image-31.png" alt="alt text"><br>发现并无要伪造cookie的地方，那尝试一下弱口令的登录（此举可以通过bp的暴力破解功能进行执行，也可以猜测），最终得到弱口令为guest</p>
+<h3 id="（2）登录查看"><a href="#（2）登录查看" class="headerlink" title="（2）登录查看"></a>（2）登录查看</h3><p><img src="/images/wp3/image-32.png" alt="alt text"><br>图中有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: role=guest</span><br></pre></td></tr></table></figure>
+<p> 相当于我们是访问者权限不高，改成admin可以获取更高权限<br><img src="/images/wp3/image-34.png" alt="alt text"><br>得到flag</p>
+<h2 id="一句话木马变形"><a href="#一句话木马变形" class="headerlink" title="一句话木马变形"></a>一句话木马变形</h2><p><em>注：一句话木马的基础形式为：<?php @eval($_POST['cmd']); ?> 其本质为把攻击者传入的内容，当成代码执行，eval是危险的,本体之所以叫变形就是他的内核时一句话木马但是并不是裸露状态的是有过滤的，上述一句话木马可以直接用蚁剑连接，但是此题是行不通的</em></p>
+<h3 id="（1）检查过滤词"><a href="#（1）检查过滤词" class="headerlink" title="（1）检查过滤词"></a>（1）检查过滤词</h3><p><img src="/images/wp3/image-36.png" alt="alt text"><br>可以看到此处只让字母数字下划线括号引号通过（内容随便输入的）</p>
+<h3 id="（2）其实在此处可以联想到用蚁剑做一句话木马的时候flag一般都在一个文件夹里，那么此处依旧想到查看其目录，因为其有过滤词那就想办法绕过"><a href="#（2）其实在此处可以联想到用蚁剑做一句话木马的时候flag一般都在一个文件夹里，那么此处依旧想到查看其目录，因为其有过滤词那就想办法绕过" class="headerlink" title="（2）其实在此处可以联想到用蚁剑做一句话木马的时候flag一般都在一个文件夹里，那么此处依旧想到查看其目录，因为其有过滤词那就想办法绕过"></a>（2）其实在此处可以联想到用蚁剑做一句话木马的时候flag一般都在一个文件夹里，那么此处依旧想到查看其目录，因为其有过滤词那就想办法绕过</h3><p>查看目录scandir(“.”)，但 “.” 过滤了，利用一个函数 localeconv()：它返回系统数字格式数组，第一个元素永远是小数点 .，再用 current() 取第一个元素 打印一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print_r(scandir(current(localeconv())));</span><br></pre></td></tr></table></figure>
+<p><img src="/images/wp3/image-37.png" alt="alt text"></p>
+<p>找到其中的flag.php，读取他的内容<br>“flag.php”，但可以用数组操作把它 “选” 出来：<br>array_reverse(…) 把文件列表倒序：index.php, flag.php, .., .<br>next(…) 指针后移一位，正好指向 flag.php<br>readfile(…) 把文件内容原样输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readfile(next(array_reverse(scandir(current(localeconv())))));</span><br></pre></td></tr></table></figure>
+<p><img src="/images/wp3/image-38.png" alt="alt text"><br>总结这道题目主要还是绕过找到核心文件<br>其用到的语法有：<em>scandir(“.”) localeconv() current() print_r（） array_reverse(…)</em> 把文件列表倒序*next(…)*指针后移一位 <em>readfile(…)</em> 把文件内容原样输出<br>（无参数函数 RCE）（”命令执行”、”代码执行”、”RCE”、”命令执行绕过”、”一句话木马”）<br>固定流程：</p>
+<ol>
+<li>确认执行点：phpinfo();</li>
+<li>看环境：disable_functions、open_basedir、环境变量里有没有 flag</li>
+<li>列目录：scandir(“.”)          ← 先看有什么文件</li>
+<li>定位 flag：当前目录没有就 dirname 往上跳、扫根目录</li>
+<li>读文件：readfile &#x2F; highlight_file<br><em>总结：为什么叫做一句话木马变形，其本质还是在于eval（）这个函数，其可以将括号内攻击者输入的东西当作命令来执行，就像是上面输入的scandir为什么可以执行就是这个原因，但是其加了一层类似过滤的保护装置，导致不可以直接进行攻击，只能绕过加攻击。</em></li>
+</ol>
+<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><p>题目为源代码，那就先看源码，f12<br><img src="/images/wp3/image-39.png" alt="alt text"><br>那可以进行解码，这个是URL 编码（百分号编码），其格式为%+十六进制，将十六进制转成十进制，再根据ASCII编码进行解码。<br>两个拼接起来得到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function checkSubmit()&#123;</span><br><span class="line">  var a = document.getElementById(&quot;password&quot;);</span><br><span class="line">  if(&quot;undefined&quot; != typeof a)&#123;</span><br><span class="line">    if(&quot;67d709b2b54aa2aa648cf6e87a7114f1&quot; == a.value)</span><br><span class="line">      return true;         </span><br><span class="line">    alert(&quot;Error&quot;);</span><br><span class="line">    a.focus();</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到密码为：67d709b2b54aa2aa648cf6e87a7114f1<br><img src="/images/wp3/image-40.png" alt="alt text"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://moo066787.github.io/2026/11/01/CTF-WP1/" data-id="cuidBX1_l1FanUzbU2OimW4Ut" data-title="CTF WP" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF-Web/" rel="tag">-CTF -Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2026/10/24/CTF-WP/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">CTF WP</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF%E9%A2%98%E8%A7%A3/">CTF题解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF-Web/" rel="tag">-CTF -Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CTF-Web/" style="font-size: 20px;">-CTF -Web</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">学习笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/11/">十一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/11/01/CTF-WP1/">CTF WP</a>
+          </li>
+        
+          <li>
+            <a href="/2026/10/24/CTF-WP/">CTF WP</a>
+          </li>
+        
+          <li>
+            <a href="/2026/10/20/%E4%B8%80%E4%BA%9BWP/">10.20 Web&amp;Misc</a>
+          </li>
+        
+          <li>
+            <a href="/2026/10/19/first-post/">My First Blog</a>
+          </li>
+        
+          <li>
+            <a href="/2026/10/19/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 wzz<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
